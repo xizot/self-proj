@@ -1,24 +1,69 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+## 🚀 Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js >= 20
+- Yarn
+
+### Installation
 
 ```bash
-npm run dev
-# or
+# Install dependencies
+yarn install
+
+# Run development server
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Available Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+yarn dev          # Start development server
+yarn build        # Build for production
+yarn start        # Start production server
+yarn lint         # Run ESLint
+yarn format       # Check Prettier formatting
+yarn format:fix   # Auto-fix Prettier formatting
+```
+
+## 📚 Development Guides
+
+- **[QUICK_START.md](./QUICK_START.md)** - Hướng dẫn nhanh để bắt đầu
+- **[DEVELOPMENT.md](./DEVELOPMENT.md)** - Hướng dẫn chi tiết về:
+  - Cấu trúc project
+  - Naming conventions
+  - Code style & best practices
+  - Examples & templates
+  - Code review checklist
+
+## 🏗️ Project Structure
+
+```
+self-proj/
+├── app/              # Next.js App Router pages
+├── features/         # Feature modules (feature-based architecture)
+├── components/       # Shared components
+├── hooks/           # Shared hooks
+├── utils/           # Utility functions
+├── types/           # Global types
+└── ...
+```
+
+Xem [DEVELOPMENT.md](./DEVELOPMENT.md) để biết chi tiết về cấu trúc project.
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **UI Library**: React 19
+- **Language**: TypeScript 5
+- **Styling**: Tailwind CSS 4
+- **UI Components**: shared-ui (custom component library)
+- **Form Handling**: react-hook-form
+- **Code Quality**: ESLint, Prettier
 
 ## Learn More
 

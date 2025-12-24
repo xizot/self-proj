@@ -1,0 +1,66 @@
+{
+  "common": {
+    "welcome": "Welcome",
+    "hello": "Hello",
+    "goodbye": "Goodbye",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "remove": "Remove",
+    "search": "Search",
+    "filter": "Filter",
+    "submit": "Submit",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close"
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot Password?",
+    "rememberMe": "Remember me",
+    "loginSuccess": "Login successful",
+    "loginFailed": "Login failed",
+    "logoutSuccess": "Logout successful",
+    "accessDenied": "Access Denied",
+    "noPermission": "You don't have permission to access this page"
+  },
+  "shareBill": {
+    "title": "Share Bill",
+    "subtitle": "Split your bill among friends",
+    "discount": "Discount",
+    "discountAmount": "Discount Amount",
+    "persons": "Persons",
+    "addPerson": "Add Person",
+    "enterPersonName": "Enter person name",
+    "summary": "Summary",
+    "totalPrice": "Total Price",
+    "afterDiscount": "After Discount"
+  },
+  "notFound": {
+    "title": "404 - Page Not Found",
+    "heading": "Oops! Page not found",
+    "description": "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.",
+    "goHome": "Go to Home",
+    "goBack": "Go Back"
+  },
+  "forbidden": {
+    "title": "403 - Access Forbidden",
+    "heading": "Access Denied",
+    "description": "You don't have permission to access this resource. Please contact your administrator if you believe this is an error.",
+    "loggedInAs": "Logged in as",
+    "goHome": "Go to Home",
+    "goBack": "Go Back",
+    "logout": "Logout"
+  }
+}
