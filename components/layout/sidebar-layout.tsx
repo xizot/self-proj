@@ -1,7 +1,9 @@
 'use client';
 
 import type { MenuItem } from '@/types/menu';
-import { useState } from 'react';
+import { useAuth } from '@/components';
+import { filterMenuItemsByAuth } from '@/utils/filter-menu-items';
+import { useMemo, useState } from 'react';
 import { cn } from 'shared-ui';
 import { Footer } from '../footer';
 import { HeaderContent } from '../header-content';
@@ -13,13 +15,20 @@ interface SidebarLayoutProps {
 }
 
 export function SidebarLayout({ children, menuItems }: SidebarLayoutProps) {
+  const { isAuthenticated } = useAuth();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
+
+  // Filter menu items based on authentication status
+  const filteredMenuItems = useMemo(
+    () => filterMenuItemsByAuth(menuItems, isAuthenticated),
+    [menuItems, isAuthenticated]
+  );
 
   return (
     <div className="flex min-h-screen">
       {/* Desktop Sidebar */}
-      <Sidebar menuItems={menuItems} isCollapsed={isCollapsed} />
+      <Sidebar menuItems={filteredMenuItems} isCollapsed={isCollapsed} />
       {/* Spacer for fixed sidebar */}
       <div className={cn('hidden md:block', isCollapsed ? 'w-16' : 'w-64')} />
 
@@ -27,7 +36,7 @@ export function SidebarLayout({ children, menuItems }: SidebarLayoutProps) {
       <MobileSidebar
         isOpen={isMobileOpen}
         onClose={() => setIsMobileOpen(false)}
-        menuItems={menuItems}
+        menuItems={filteredMenuItems}
       />
 
       {/* Content Area */}

@@ -6,6 +6,7 @@ export interface LinkMenuItem {
   icon: LucideIcon;
   title: string;
   badge?: string | number;
+  protected?: boolean;
 }
 
 export interface CollapsibleMenuItem {
@@ -14,6 +15,7 @@ export interface CollapsibleMenuItem {
   title: string;
   children: MenuItem[];
   badge?: string | number;
+  protected?: boolean;
 }
 
 export type MenuItem = LinkMenuItem | CollapsibleMenuItem;
