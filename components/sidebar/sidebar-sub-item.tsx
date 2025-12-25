@@ -4,6 +4,7 @@ import type { LinkMenuItem } from '@/types/menu';
 import { cn } from '@/utils/cn';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 interface SidebarSubItemProps {
   item: LinkMenuItem;
@@ -11,7 +12,9 @@ interface SidebarSubItemProps {
 
 export function SidebarSubItem({ item }: SidebarSubItemProps) {
   const pathname = usePathname();
+  const t = useTranslations();
   const isActive = pathname === item.href;
+  const translatedTitle = t(item.title);
 
   return (
     <Link
@@ -22,7 +25,7 @@ export function SidebarSubItem({ item }: SidebarSubItemProps) {
         isActive && 'bg-accent text-accent-foreground font-medium'
       )}
     >
-      <span>{item.title}</span>
+      <span>{translatedTitle}</span>
     </Link>
   );
 }

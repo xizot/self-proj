@@ -70,6 +70,116 @@
     "toggle": "Toggle sidebar",
     "close": "Close sidebar",
     "open": "Open sidebar",
-    "menu": "Menu"
+    "menu": "Menu",
+    "menuItems": {
+      "home": "Home",
+      "dashboard": "Dashboard",
+      "finance": "Finance",
+      "financeOverview": "Overview",
+      "financeTransactions": "Income & Expenses",
+      "financeBudget": "Budget",
+      "financeShareBill": "Split Bill",
+      "work": "Work",
+      "tasks": "Tasks",
+      "projects": "Projects",
+      "templates": "Templates",
+      "time": "Time",
+      "calendar": "Calendar",
+      "habits": "Habits",
+      "routines": "Routines",
+      "health": "Health",
+      "relationships": "Relationships",
+      "knowledge": "Knowledge",
+      "notes": "Notes",
+      "learning": "Learning",
+      "goals": "Goals",
+      "settings": "Settings"
+    }
+  },
+  "pages": {
+    "financeOverview": {
+      "emptyState": {
+        "title": "No Financial Overview Yet",
+        "description": "Start tracking your finances to see an overview of your income, expenses, and savings."
+      }
+    },
+    "financeTransactions": {
+      "emptyState": {
+        "title": "No Transactions Yet",
+        "description": "Add your first income or expense transaction to start tracking your finances."
+      }
+    },
+    "financeBudget": {
+      "emptyState": {
+        "title": "No Budget Set",
+        "description": "Create your first budget to help manage your spending and achieve your financial goals."
+      }
+    },
+    "tasks": {
+      "emptyState": {
+        "title": "No Tasks Yet",
+        "description": "Create your first task to start organizing your work and stay productive."
+      }
+    },
+    "projects": {
+      "emptyState": {
+        "title": "No Projects Yet",
+        "description": "Create your first project to track progress and collaborate with your team."
+      }
+    },
+    "templates": {
+      "emptyState": {
+        "title": "No Templates Yet",
+        "description": "Create reusable templates to speed up your workflow and maintain consistency."
+      }
+    },
+    "calendar": {
+      "emptyState": {
+        "title": "No Events Scheduled",
+        "description": "Add events to your calendar to stay organized and never miss an important date."
+      }
+    },
+    "habits": {
+      "emptyState": {
+        "title": "No Habits Tracked",
+        "description": "Start tracking habits to build positive routines and achieve your long-term goals."
+      }
+    },
+    "routines": {
+      "emptyState": {
+        "title": "No Routines Created",
+        "description": "Create routines to automate your daily tasks and improve your productivity."
+      }
+    },
+    "health": {
+      "emptyState": {
+        "title": "No Health Data Yet",
+        "description": "Start tracking your health metrics, workouts, and wellness activities."
+      }
+    },
+    "relationships": {
+      "emptyState": {
+        "title": "No Relationships Tracked",
+        "description": "Keep track of important people in your life and your interactions with them."
+      }
+    },
+    "notes": {
+      "emptyState": {
+        "title": "No Notes Yet",
+        "description": "Create your first note to capture ideas, thoughts, and important information."
+      }
+    },
+    "learning": {
+      "emptyState": {
+        "title": "No Learning Resources",
+        "description": "Add courses, books, or learning materials to track your educational journey."
+      }
+    },
+    "goals": {
+      "emptyState": {
+        "title": "No Goals Set",
+        "description": "Set your first goal to start working towards your dreams and aspirations."
+      }
+    }
   }
 }

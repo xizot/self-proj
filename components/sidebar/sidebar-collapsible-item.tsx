@@ -4,6 +4,7 @@ import type { CollapsibleMenuItem, LinkMenuItem } from '@/types/menu';
 import { cn } from '@/utils/cn';
 import { ChevronRight } from 'lucide-react';
 import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { useMemo, useState } from 'react';
 import { SidebarSubItem } from './sidebar-sub-item';
 
@@ -14,7 +15,9 @@ interface SidebarCollapsibleItemProps {
 
 export function SidebarCollapsibleItem({ item, isCollapsed = false }: SidebarCollapsibleItemProps) {
   const pathname = usePathname();
+  const t = useTranslations();
   const Icon = item.icon;
+  const translatedTitle = t(item.title);
 
   // Auto-expand if any child is active
   const hasActiveChild = useMemo(() => {
@@ -43,12 +46,12 @@ export function SidebarCollapsibleItem({ item, isCollapsed = false }: SidebarCol
           'hover:bg-accent hover:text-accent-foreground',
           isCollapsed && 'justify-center px-2'
         )}
-        title={isCollapsed ? item.title : undefined}
+        title={isCollapsed ? translatedTitle : undefined}
       >
         <Icon className="h-5 w-5 shrink-0" />
         {!isCollapsed && (
           <>
-            <span className="flex-1 text-left">{item.title}</span>
+            <span className="flex-1 text-left">{translatedTitle}</span>
             {item.badge && (
               <span className="rounded-full bg-primary px-2 py-0.5 text-xs text-primary-foreground">
                 {item.badge}

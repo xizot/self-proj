@@ -70,6 +70,116 @@
     "toggle": "Chuyển đổi sidebar",
     "close": "Đóng sidebar",
     "open": "Mở sidebar",
-    "menu": "Menu"
+    "menu": "Menu",
+    "menuItems": {
+      "home": "Trang chủ",
+      "dashboard": "Dashboard",
+      "finance": "Tài chính",
+      "financeOverview": "Tổng quan",
+      "financeTransactions": "Thu chi",
+      "financeBudget": "Ngân sách",
+      "financeShareBill": "Chia bill",
+      "work": "Công việc",
+      "tasks": "Nhiệm vụ",
+      "projects": "Dự án",
+      "templates": "Templates",
+      "time": "Thời gian",
+      "calendar": "Lịch",
+      "habits": "Thói quen",
+      "routines": "Routine",
+      "health": "Sức khỏe",
+      "relationships": "Mối quan hệ",
+      "knowledge": "Kiến thức",
+      "notes": "Ghi chú",
+      "learning": "Học tập",
+      "goals": "Mục tiêu",
+      "settings": "Cài đặt"
+    }
+  },
+  "pages": {
+    "financeOverview": {
+      "emptyState": {
+        "title": "Chưa có tổng quan tài chính",
+        "description": "Bắt đầu theo dõi tài chính để xem tổng quan về thu nhập, chi tiêu và tiết kiệm của bạn."
+      }
+    },
+    "financeTransactions": {
+      "emptyState": {
+        "title": "Chưa có giao dịch",
+        "description": "Thêm giao dịch thu nhập hoặc chi tiêu đầu tiên để bắt đầu theo dõi tài chính."
+      }
+    },
+    "financeBudget": {
+      "emptyState": {
+        "title": "Chưa có ngân sách",
+        "description": "Tạo ngân sách đầu tiên để giúp quản lý chi tiêu và đạt được mục tiêu tài chính."
+      }
+    },
+    "tasks": {
+      "emptyState": {
+        "title": "Chưa có nhiệm vụ",
+        "description": "Tạo nhiệm vụ đầu tiên để bắt đầu tổ chức công việc và duy trì năng suất."
+      }
+    },
+    "projects": {
+      "emptyState": {
+        "title": "Chưa có dự án",
+        "description": "Tạo dự án đầu tiên để theo dõi tiến độ và cộng tác với nhóm của bạn."
+      }
+    },
+    "templates": {
+      "emptyState": {
+        "title": "Chưa có template",
+        "description": "Tạo các template có thể tái sử dụng để tăng tốc quy trình làm việc và duy trì tính nhất quán."
+      }
+    },
+    "calendar": {
+      "emptyState": {
+        "title": "Chưa có sự kiện",
+        "description": "Thêm sự kiện vào lịch để luôn tổ chức và không bao giờ bỏ lỡ ngày quan trọng."
+      }
+    },
+    "habits": {
+      "emptyState": {
+        "title": "Chưa theo dõi thói quen",
+        "description": "Bắt đầu theo dõi thói quen để xây dựng thói quen tích cực và đạt được mục tiêu dài hạn."
+      }
+    },
+    "routines": {
+      "emptyState": {
+        "title": "Chưa có routine",
+        "description": "Tạo routine để tự động hóa các tác vụ hàng ngày và cải thiện năng suất."
+      }
+    },
+    "health": {
+      "emptyState": {
+        "title": "Chưa có dữ liệu sức khỏe",
+        "description": "Bắt đầu theo dõi các chỉ số sức khỏe, bài tập và hoạt động thể chất của bạn."
+      }
+    },
+    "relationships": {
+      "emptyState": {
+        "title": "Chưa theo dõi mối quan hệ",
+        "description": "Theo dõi những người quan trọng trong cuộc sống và tương tác của bạn với họ."
+      }
+    },
+    "notes": {
+      "emptyState": {
+        "title": "Chưa có ghi chú",
+        "description": "Tạo ghi chú đầu tiên để ghi lại ý tưởng, suy nghĩ và thông tin quan trọng."
+      }
+    },
+    "learning": {
+      "emptyState": {
+        "title": "Chưa có tài liệu học tập",
+        "description": "Thêm khóa học, sách hoặc tài liệu học tập để theo dõi hành trình giáo dục của bạn."
+      }
+    },
+    "goals": {
+      "emptyState": {
+        "title": "Chưa có mục tiêu",
+        "description": "Đặt mục tiêu đầu tiên để bắt đầu hướng tới ước mơ và nguyện vọng của bạn."
+      }
+    }
   }
 }
