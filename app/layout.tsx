@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { Geist, Geist_Mono } from 'next/font/google';
+import Script from 'next/script';
 import NextTopLoader from 'nextjs-toploader';
 import 'shared-ui/styles.css';
 import './globals.css';
@@ -33,6 +34,30 @@ export default async function RootLayout({
   return (
     <html suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <Script
+          id="locale-sync"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var storedLocale = localStorage.getItem('locale');
+                  if (storedLocale && ['en', 'vi'].includes(storedLocale)) {
+                    var cookies = document.cookie.split(';');
+                    var hasLocaleCookie = cookies.some(function(cookie) {
+                      return cookie.trim().startsWith('locale=');
+                    });
+                    if (!hasLocaleCookie) {
+                      document.cookie = 'locale=' + storedLocale + '; path=/; max-age=31536000';
+                    }
+                  }
+                } catch (e) {
+                  // Ignore errors in SSR or if localStorage is not available
+                }
+              })();
+            `,
+          }}
+        />
         <ErrorBoundary>
           <NextTopLoader showSpinner={false} height={3} color="#d92d20" easing="ease" speed={200} />
           <NextIntlClientProvider messages={messages}>

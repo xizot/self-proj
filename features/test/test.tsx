@@ -1,10 +1,4 @@
-import React from 'react';
-
-export interface TestProps {
-  // Add your props here
-}
-
-export const Test: React.FC<TestProps> = (props) => {
+export const Test = () => {
   return (
     <div>
       <h1>Test</h1>

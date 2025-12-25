@@ -36,8 +36,8 @@ export default function ShareBillPage() {
   const afterDiscount = Math.max(0, totalPrice - discount);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20 p-4 md:p-8">
-      <div className="mx-auto max-w-4xl space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div className="flex flex-1 flex-col bg-gradient-to-br from-background via-background to-muted/20 p-4 md:p-8">
+      <div className="mx-auto w-full max-w-4xl space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
         <PageHeader />
 
         <DiscountCard discount={discount} onDiscountChange={setDiscount} />
@@ -59,4 +59,3 @@ export default function ShareBillPage() {
     </div>
   );
 }
-

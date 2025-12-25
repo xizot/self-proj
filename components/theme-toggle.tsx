@@ -1,19 +1,19 @@
 'use client';
-
 import { useTheme } from 'next-themes';
 import { Button } from 'shared-ui';
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, resolvedTheme } = useTheme();
 
   return (
     <Button
-      variant="outline"
-      size="icon-sm"
+      variant="ghost"
+      size="icon"
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
       aria-label="Toggle theme"
+      suppressHydrationWarning
     >
-      {theme === 'dark' ? <span>☀️</span> : <span>🌙</span>}
+      {resolvedTheme === 'dark' ? '☀️' : '🌙'}
     </Button>
   );
 }

@@ -1,5 +1,6 @@
 'use client';
 
+import { Footer } from '../footer';
 import { Header } from '../header';
 
 interface AppLayoutProps {
@@ -11,6 +12,7 @@ export function AppLayout({ children }: AppLayoutProps) {
     <div className="flex min-h-screen flex-col">
       <Header />
       <main className="flex-1">{children}</main>
+      <Footer />
     </div>
   );
 }

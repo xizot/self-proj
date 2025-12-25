@@ -62,5 +62,14 @@
     "goHome": "Về trang chủ",
     "goBack": "Quay lại",
     "logout": "Đăng xuất"
+  },
+  "footer": {
+    "copyright": "© {year} Bảo lưu mọi quyền."
+  },
+  "sidebar": {
+    "toggle": "Chuyển đổi sidebar",
+    "close": "Đóng sidebar",
+    "open": "Mở sidebar",
+    "menu": "Menu"
   }
 }

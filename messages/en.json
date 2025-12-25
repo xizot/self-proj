@@ -62,5 +62,14 @@
     "goHome": "Go to Home",
     "goBack": "Go Back",
     "logout": "Logout"
+  },
+  "footer": {
+    "copyright": "© {year} All rights reserved."
+  },
+  "sidebar": {
+    "toggle": "Toggle sidebar",
+    "close": "Close sidebar",
+    "open": "Open sidebar",
+    "menu": "Menu"
   }
 }

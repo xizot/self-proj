@@ -1,3 +1,5 @@
+import { STORAGE_KEYS } from '@/constants/storage-keys';
+import { defaultLocale, locales, type Locale } from '@/i18n/config';
 import type { ApiError, ApiResponse, RequestConfig } from '@/types/api';
 import axios, {
   AxiosError,
@@ -5,12 +7,25 @@ import axios, {
   AxiosRequestConfig,
   InternalAxiosRequestConfig,
 } from 'axios';
-import { STORAGE_KEYS } from '@/constants/storage-keys';
 
 // Get token from localStorage (or from auth context/store)
 const getToken = (): string | null => {
   if (typeof window === 'undefined') return null;
-  return localStorage.getItem(STORAGE_KEYS.TOKEN) || localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN);
+  return (
+    localStorage.getItem(STORAGE_KEYS.TOKEN) || localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN)
+  );
+};
+
+// Get locale from localStorage only (sync logic handled by LocaleSync component)
+const getLocale = (): Locale => {
+  if (typeof window === 'undefined') return defaultLocale;
+
+  const storedLocale = localStorage.getItem(STORAGE_KEYS.LOCALE);
+  if (storedLocale && locales.includes(storedLocale as Locale)) {
+    return storedLocale as Locale;
+  }
+
+  return defaultLocale;
 };
 
 // Create axios instance
@@ -36,6 +51,12 @@ axiosInstance.interceptors.request.use(
     const token = getToken();
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    // Add locale header (x-lang)
+    const locale = getLocale();
+    if (config.headers) {
+      config.headers['x-lang'] = locale;
     }
 
     // Handle FormData - let axios set Content-Type automatically with boundary

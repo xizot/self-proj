@@ -16,6 +16,11 @@ export const STORAGE_KEYS = {
    * Current authenticated user data
    */
   USER: 'user',
+
+  /**
+   * Current locale/language preference
+   */
+  LOCALE: 'locale',
 } as const;
 
 /**

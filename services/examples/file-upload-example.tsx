@@ -1,10 +1,9 @@
 'use client';
 
+import { formatApiError, formatFileSize, validateFileSize, validateFileType } from '@/utils';
 import { useState } from 'react';
 import { Button, Card, CardContent, CardHeader, CardTitle } from 'shared-ui';
 import { userService } from '../user-service';
-import { createFormData, formatFileSize, validateFileSize, validateFileType } from '@/utils';
-import { formatApiError } from '@/utils';
 
 /**
  * Example component demonstrating file upload
@@ -70,26 +69,26 @@ export function FileUploadExample() {
     }
   };
 
-  const handleUploadMultiple = async (files: File[]) => {
-    try {
-      setUploading(true);
-      setError(null);
+  // const handleUploadMultiple = async (files: File[]) => {
+  //   try {
+  //     setUploading(true);
+  //     setError(null);
 
-      // Upload multiple files
-      const formData = createFormData(files, 'files');
-      // Add other fields if needed
-      formData.append('userId', '123');
-      formData.append('description', 'Multiple files upload');
+  //     // Upload multiple files
+  //     const formData = createFormData(files, 'files');
+  //     // Add other fields if needed
+  //     formData.append('userId', '123');
+  //     formData.append('description', 'Multiple files upload');
 
-      // Use apiClient directly
-      // const response = await apiClient.post('/upload/multiple', formData);
-    } catch (err) {
-      const errorMessage = formatApiError(err);
-      setError(errorMessage);
-    } finally {
-      setUploading(false);
-    }
-  };
+  //     // Use apiClient directly
+  //     // const response = await apiClient.post('/upload/multiple', formData);
+  //   } catch (err) {
+  //     const errorMessage = formatApiError(err);
+  //     setError(errorMessage);
+  //   } finally {
+  //     setUploading(false);
+  //   }
+  // };
 
   return (
     <Card>
