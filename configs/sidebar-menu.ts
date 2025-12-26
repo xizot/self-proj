@@ -8,10 +8,12 @@ import {
   FileText,
   Heart,
   Home,
+  Key,
   LayoutDashboard,
   Receipt,
   Repeat,
   Settings,
+  Shield,
   Target,
   TrendingUp,
   Users,
@@ -67,6 +69,12 @@ export const defaultMenuItems: MenuItem[] = [
     icon: CheckSquare,
     title: 'sidebar.menuItems.work',
     children: [
+      {
+        type: 'link',
+        href: '/sprint-report',
+        icon: CheckSquare,
+        title: 'sidebar.menuItems.sprintReport',
+      },
       {
         type: 'link',
         href: '/tasks',
@@ -151,8 +159,28 @@ export const defaultMenuItems: MenuItem[] = [
   },
   {
     type: 'link',
-    href: '/settings',
+    href: '/passwords',
+    icon: Key,
+    title: 'sidebar.menuItems.passwords',
+  },
+  {
+    type: 'collapsible',
     icon: Settings,
     title: 'sidebar.menuItems.settings',
+    children: [
+      {
+        type: 'link',
+        href: '/settings',
+        icon: Settings,
+        title: 'sidebar.menuItems.generalSettings',
+      },
+      {
+        type: 'link',
+        href: '/settings/users',
+        icon: Shield,
+        title: 'sidebar.menuItems.userManagement',
+        roles: ['admin', 'super-admin'],
+      },
+    ],
   },
 ];

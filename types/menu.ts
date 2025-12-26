@@ -7,6 +7,7 @@ export interface LinkMenuItem {
   title: string;
   badge?: string | number;
   protected?: boolean;
+  roles?: string[]; // Roles required to see this menu item
 }
 
 export interface CollapsibleMenuItem {
@@ -16,6 +17,7 @@ export interface CollapsibleMenuItem {
   children: MenuItem[];
   badge?: string | number;
   protected?: boolean;
+  roles?: string[]; // Roles required to see this menu item
 }
 
 export type MenuItem = LinkMenuItem | CollapsibleMenuItem;

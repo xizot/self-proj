@@ -1,18 +1,12 @@
+'use client';
+
 import { BackButton } from '@/components/back-button';
-import { getTranslations } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { Button, Card, CardContent, CardHeader, CardTitle } from 'shared-ui';
 
-export async function generateMetadata() {
-  const t = await getTranslations('notFound');
-  return {
-    title: t('title'),
-    description: t('description'),
-  };
-}
-
-export default async function NotFound() {
-  const t = await getTranslations('notFound');
+export default function NotFound() {
+  const t = useTranslations('notFound');
 
   return (
     <div className="flex min-h-screen items-center justify-center p-4">

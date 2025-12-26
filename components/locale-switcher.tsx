@@ -2,47 +2,57 @@
 
 import { STORAGE_KEYS } from '@/constants/storage-keys';
 import { localeNames, locales, type Locale } from '@/i18n/config';
-import { setCookie } from '@/utils/cookie';
 import { Globe } from 'lucide-react';
 import { useLocale } from 'next-intl';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Combobox } from 'shared-ui/client';
+
+const options = locales.map((loc) => ({
+  id: loc,
+  name: localeNames[loc],
+}));
 
 export function LocaleSwitcher() {
   const locale = useLocale() as Locale;
   const [isSwitching, setIsSwitching] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
-  const options = locales.map((loc) => ({
-    id: loc,
-    name: localeNames[loc],
-  }));
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleChange = (value: string) => {
-    console.log('LocaleSwitcher onChange called:', value);
     const newLocale = value as Locale;
 
-    // Don't switch if already switching or same locale
     if (isSwitching || newLocale === locale) {
-      console.log('Skipping switch:', { isSwitching, newLocale, locale });
       return;
     }
 
     // Validate locale
     if (!locales.includes(newLocale)) {
-      console.error(`Invalid locale: ${newLocale}`);
       return;
     }
 
     setIsSwitching(true);
 
-    // Set locale in localStorage (for fast access in axios)
+    // Save to localStorage only
     localStorage.setItem(STORAGE_KEYS.LOCALE, newLocale);
-    // Set locale in cookie (for server-side rendering)
-    setCookie('locale', newLocale);
 
-    // Reload page to apply new locale (router.refresh() doesn't work properly with next-intl)
+    // Clear reload flag to allow switching
+    sessionStorage.removeItem('locale_reload_' + newLocale);
+
+    // Reload page to apply new locale
     window.location.reload();
   };
+
+  // Prevent hydration mismatch by only rendering Combobox on client
+  if (!isMounted) {
+    return (
+      <div className="w-[140px] h-9 flex items-center justify-center">
+        <Globe className="h-4 w-4 text-muted-foreground" />
+      </div>
+    );
+  }
 
   return (
     <Combobox

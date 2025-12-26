@@ -93,7 +93,11 @@
       "notes": "Ghi chú",
       "learning": "Học tập",
       "goals": "Mục tiêu",
-      "settings": "Cài đặt"
+      "sprintReport": "Báo cáo sprint",
+      "passwords": "Mật khẩu",
+      "settings": "Cài đặt",
+      "generalSettings": "Cài đặt chung",
+      "userManagement": "Quản lý tài khoản"
     }
   },
   "pages": {

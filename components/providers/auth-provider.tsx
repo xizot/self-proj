@@ -18,7 +18,26 @@ export function AuthProvider({ children }: AuthProviderProps) {
   useEffect(() => {
     const initializeAuth = async () => {
       try {
-        // TODO: Replace with actual auth check (e.g., check token, fetch user)
+        // Try to get user from API first
+        const response = await fetch('/api/auth/me');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.user) {
+            // Map database user to frontend User type
+            // Convert role string to roles array
+            const roles = data.user.role ? [data.user.role] : ['user'];
+            const mappedUser: User = {
+              id: String(data.user.id),
+              email: data.user.email,
+              name: data.user.name || '',
+              roles,
+            };
+            setUser(mappedUser);
+            localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(mappedUser));
+            return;
+          }
+        }
+        // Fallback to stored user if API fails
         const storedUser = localStorage.getItem(STORAGE_KEYS.USER);
         if (storedUser) {
           const parsedUser = JSON.parse(storedUser);
@@ -26,6 +45,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
         }
       } catch (error) {
         console.error('Failed to initialize auth:', error);
+        // Try to load from localStorage as fallback
+        try {
+          const storedUser = localStorage.getItem(STORAGE_KEYS.USER);
+          if (storedUser) {
+            const parsedUser = JSON.parse(storedUser);
+            setUser(parsedUser);
+          }
+        } catch {
+          // Ignore localStorage errors
+        }
       } finally {
         setIsLoading(false);
       }
@@ -34,27 +63,40 @@ export function AuthProvider({ children }: AuthProviderProps) {
     initializeAuth();
   }, []);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const login = useCallback(async (email: string, password: string) => {
+  const login = useCallback(async (username: string, password: string) => {
     try {
       setIsLoading(true);
-      // TODO: Replace with actual API call
-      // const response = await fetch('/api/auth/login', {
-      //   method: 'POST',
-      //   body: JSON.stringify({ email, password }),
-      // });
-      // const data = await response.json();
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: username, password }),
+      });
 
-      // Mock user for demo (password is used in actual implementation)
-      const mockUser: User = {
-        id: '1',
-        email,
-        name: 'John Doe',
-        roles: ['user'],
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Đăng nhập thất bại');
+      }
+
+      // Map database user to frontend User type
+      // Convert role string to roles array
+      const roles = data.user.role ? [data.user.role] : ['user'];
+      const mappedUser: User = {
+        id: String(data.user.id),
+        email: data.user.email,
+        name: data.user.name || '',
+        roles,
       };
 
-      setUser(mockUser);
-      localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(mockUser));
+      setUser(mappedUser);
+      localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(mappedUser));
+
+      // Store token if provided
+      if (data.token) {
+        localStorage.setItem(STORAGE_KEYS.TOKEN, data.token);
+      }
     } catch (error) {
       console.error('Login failed:', error);
       throw error;
@@ -66,14 +108,19 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const logout = useCallback(async () => {
     try {
       setIsLoading(true);
-      // TODO: Replace with actual API call
-      // await fetch('/api/auth/logout', { method: 'POST' });
+      await fetch('/api/auth/logout', { method: 'POST' });
 
       setUser(null);
       localStorage.removeItem(STORAGE_KEYS.USER);
+      localStorage.removeItem(STORAGE_KEYS.TOKEN);
+      localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
     } catch (error) {
       console.error('Logout failed:', error);
-      throw error;
+      // Still clear local state even if API call fails
+      setUser(null);
+      localStorage.removeItem(STORAGE_KEYS.USER);
+      localStorage.removeItem(STORAGE_KEYS.TOKEN);
+      localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
     } finally {
       setIsLoading(false);
     }
@@ -84,15 +131,34 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     try {
       setIsLoading(true);
-      // TODO: Replace with actual API call
-      // const response = await fetch('/api/auth/me');
-      // const data = await response.json();
-      // setUser(data.user);
+      const response = await fetch('/api/auth/me');
+
+      if (!response.ok) {
+        throw new Error('Failed to refresh user');
+      }
+
+      const data = await response.json();
+
+      if (data.user) {
+        // Map database user to frontend User type
+        // Convert role string to roles array
+        const roles = data.user.role ? [data.user.role] : ['user'];
+        const mappedUser: User = {
+          id: String(data.user.id),
+          email: data.user.email,
+          name: data.user.name || '',
+          roles,
+        };
+        setUser(mappedUser);
+        localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(mappedUser));
+      }
     } catch (error) {
       console.error('Failed to refresh user:', error);
       // On error, logout user
       setUser(null);
       localStorage.removeItem(STORAGE_KEYS.USER);
+      localStorage.removeItem(STORAGE_KEYS.TOKEN);
+      localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
     } finally {
       setIsLoading(false);
     }

@@ -1,16 +1,10 @@
 import { getRequestConfig } from 'next-intl/server';
-import { cookies } from 'next/headers';
-import { defaultLocale, locales } from './config';
+import { defaultLocale } from './config';
 
 export default getRequestConfig(async () => {
-  // Get locale from cookie, fallback to default
-  const cookieStore = await cookies();
-  let locale = cookieStore.get('locale')?.value || defaultLocale;
-
-  // Ensure that a valid locale is used
-  if (!locale || !locales.includes(locale as (typeof locales)[number])) {
-    locale = defaultLocale;
-  }
+  // Always use default locale for SSR/SSG
+  // Client-side will handle locale switching via localStorage
+  const locale = defaultLocale;
 
   return {
     locale,

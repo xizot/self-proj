@@ -15,14 +15,14 @@ interface SidebarLayoutProps {
 }
 
 export function SidebarLayout({ children, menuItems }: SidebarLayoutProps) {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
-  // Filter menu items based on authentication status
+  // Filter menu items based on authentication status and user roles
   const filteredMenuItems = useMemo(
-    () => filterMenuItemsByAuth(menuItems, isAuthenticated),
-    [menuItems, isAuthenticated]
+    () => filterMenuItemsByAuth(menuItems, isAuthenticated, user?.roles),
+    [menuItems, isAuthenticated, user?.roles]
   );
 
   return (

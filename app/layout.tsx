@@ -1,7 +1,7 @@
 import { ErrorBoundary } from '@/components/error-boundary';
 import { AppProviders } from '@/components/providers';
+import { IntlProvider } from '@/components/providers/intl-provider';
 import type { Metadata } from 'next';
-import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { Geist, Geist_Mono } from 'next/font/google';
 import Script from 'next/script';
@@ -32,7 +32,7 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html suppressHydrationWarning>
+    <html lang="vi" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Script
           id="locale-sync"
@@ -41,18 +41,25 @@ export default async function RootLayout({
             __html: `
               (function() {
                 try {
+                  // Check if user has a preferred locale in localStorage
                   var storedLocale = localStorage.getItem('locale');
+                  var currentLocale = document.documentElement.lang || 'vi';
+
+                  // Update HTML lang attribute immediately
                   if (storedLocale && ['en', 'vi'].includes(storedLocale)) {
-                    var cookies = document.cookie.split(';');
-                    var hasLocaleCookie = cookies.some(function(cookie) {
-                      return cookie.trim().startsWith('locale=');
-                    });
-                    if (!hasLocaleCookie) {
-                      document.cookie = 'locale=' + storedLocale + '; path=/; max-age=31536000';
+                    document.documentElement.lang = storedLocale;
+
+                    // If stored locale differs from server-rendered locale, reload once
+                    if (storedLocale !== currentLocale) {
+                      var reloadKey = 'locale_reload_' + storedLocale;
+                      if (!sessionStorage.getItem(reloadKey)) {
+                        sessionStorage.setItem(reloadKey, '1');
+                        window.location.reload();
+                      }
                     }
                   }
                 } catch (e) {
-                  // Ignore errors in SSR or if localStorage is not available
+                  // Ignore errors in SSR or if storage is not available
                 }
               })();
             `,
@@ -60,9 +67,9 @@ export default async function RootLayout({
         />
         <ErrorBoundary>
           <NextTopLoader showSpinner={false} height={3} color="#d92d20" easing="ease" speed={200} />
-          <NextIntlClientProvider messages={messages}>
+          <IntlProvider initialMessages={messages}>
             <AppProviders>{children}</AppProviders>
-          </NextIntlClientProvider>
+          </IntlProvider>
         </ErrorBoundary>
       </body>
     </html>

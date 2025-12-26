@@ -93,7 +93,11 @@
       "notes": "Notes",
       "learning": "Learning",
       "goals": "Goals",
-      "settings": "Settings"
+      "sprintReport": "Sprint Report",
+      "passwords": "Passwords",
+      "settings": "Settings",
+      "generalSettings": "General Settings",
+      "userManagement": "User Management"
     }
   },
   "pages": {
