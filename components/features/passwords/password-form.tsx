@@ -58,13 +58,11 @@ export function PasswordForm({
   const [passwords, setPasswords] = useState<Password[]>([]);
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [selectedAppName, setSelectedAppName] = useState<string>('');
-  const [isCreatingNew, setIsCreatingNew] = useState(false);
-  const [duplicateWarning, setDuplicateWarning] = useState<string>('');
 
   const existingAppNames = passwords
     .map((p) => p.app_name)
-    .filter((name, index, self) => self.indexOf(name) === index);
+    .filter((name, index, self) => self.indexOf(name) === index)
+    .sort();
 
   const formSchema = createPasswordFormSchema(
     editingPassword ? [] : existingAppNames // Không check trùng khi edit
@@ -76,7 +74,6 @@ export function PasswordForm({
     reset,
     formState: { errors },
     watch,
-    setValue,
   } = useForm<PasswordFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -117,8 +114,6 @@ export function PasswordForm({
         url: editingPassword.url || '',
         notes: editingPassword.notes || '',
       });
-      setSelectedAppName(editingPassword.app_name);
-      setIsCreatingNew(false);
     } else {
       reset({
         app_name: '',
@@ -129,9 +124,6 @@ export function PasswordForm({
         url: '',
         notes: '',
       });
-      setSelectedAppName('');
-      setIsCreatingNew(false);
-      setDuplicateWarning('');
     }
   }, [editingPassword, open, reset]);
 
@@ -169,25 +161,7 @@ export function PasswordForm({
     }
   };
 
-  const handleAppNameChange = (value: string) => {
-    setSelectedAppName(value);
-    if (value === '__create_new__') {
-      setIsCreatingNew(true);
-      setValue('app_name', '');
-      setDuplicateWarning('');
-    } else {
-      // Khi chọn tên đã có, hiển thị cảnh báo và reset về "Tạo mới"
-      setDuplicateWarning(`"${value}" đã tồn tại. Vui lòng nhập tên khác.`);
-      setSelectedAppName('');
-      setIsCreatingNew(true);
-      setValue('app_name', '');
-    }
-  };
-
-  const appNameOptions = [
-    { id: '__create_new__', name: '+ Tạo mới' },
-    ...existingAppNames.map((name) => ({ id: name, name })),
-  ];
+  const appNameOptions = existingAppNames.map((name) => ({ id: name, name }));
 
   const currentType = watch('type');
 
@@ -228,42 +202,32 @@ export function PasswordForm({
                 )}
               />
             ) : (
-              <>
-                <Combobox
-                  options={appNameOptions}
-                  value={selectedAppName}
-                  onChange={handleAppNameChange}
-                  placeholder="Chọn hoặc tạo tên ứng dụng..."
-                  searchPlaceholder="Tìm kiếm tên ứng dụng..."
-                  disabled={isSubmitting}
-                />
-                {isCreatingNew && (
-                  <Controller
-                    name="app_name"
-                    control={control}
-                    render={({ field }) => (
-                      <Input
-                        id="app_name"
-                        {...field}
-                        placeholder="Nhập tên ứng dụng mới"
-                        disabled={isSubmitting}
-                        className="mt-2"
-                        onChange={(e) => {
-                          field.onChange(e);
-                          if (duplicateWarning) {
-                            setDuplicateWarning('');
-                          }
-                        }}
-                      />
-                    )}
+              <Controller
+                name="app_name"
+                control={control}
+                render={({ field }) => (
+                  <Combobox
+                    options={appNameOptions}
+                    value={field.value || ''}
+                    onChange={(value) => {
+                      // Không cho phép chọn tên đã tồn tại khi tạo mới
+                      if (value && existingAppNames.includes(value) && !editingPassword) {
+                        return;
+                      }
+                      field.onChange(value);
+                    }}
+                    placeholder="Tìm kiếm hoặc tạo tên ứng dụng..."
+                    searchPlaceholder="Tìm kiếm tên ứng dụng..."
+                    disabled={isSubmitting}
+                    showCreate={true}
+                    onCreate={(searchValue) => {
+                      // Khi click "Tạo mới", điền giá trị vào form
+                      field.onChange(searchValue);
+                    }}
+                    createLabel={(searchValue) => `Tạo mới: "${searchValue}"`}
                   />
                 )}
-                {duplicateWarning && (
-                  <p className="text-sm text-yellow-600 dark:text-yellow-500 mt-1">
-                    {duplicateWarning}
-                  </p>
-                )}
-              </>
+              />
             )}
             {errors.app_name && (
               <p className="text-sm text-destructive">{errors.app_name.message}</p>
