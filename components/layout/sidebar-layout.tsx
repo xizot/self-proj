@@ -1,7 +1,7 @@
 'use client';
 
-import type { MenuItem } from '@/types/menu';
 import { useAuth } from '@/components';
+import type { MenuItem } from '@/types/menu';
 import { filterMenuItemsByAuth } from '@/utils/filter-menu-items';
 import { useMemo, useState } from 'react';
 import { cn } from 'shared-ui';
@@ -61,7 +61,7 @@ export function SidebarLayout({ children, menuItems }: SidebarLayoutProps) {
         </div>
 
         {/* Main Content */}
-        <main className="relative flex flex-1 p-4 bg-main-wrapper-background">
+        <main className="relative flex flex-1 p-4 bg-">
           <div className="absolute -top-2 -left-2 w-5 h-5 bg-sidebar"></div>
           <div className="absolute top-0 left-0 w-5 h-5 bg-main-wrapper-background rounded-full"></div>
           <div className="flex-1 bg-main-background rounded-md p-4">{children}</div>
